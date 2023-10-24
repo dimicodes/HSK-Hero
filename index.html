@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="main-container">
+      <h1>HSK HERO</h1>
+
+      <div id="top-sections">
+        <div id="settings">
+          <h2 class="settings">SETTINGS</h2>
+          <h2 class="choose-h2">Choose a language:</h2>
+          <button id="chinese">Chinese</button>
+
+          <h2 class="choose-h2">Choose learning mode:</h2>
+          <button id="reviewWords">Review</button>
+          <button id="newWords">Learn New Words</button>
+        </div>
+
+        <div id="stats">
+          <h2 class="stats">YOUR STATS</h2>
+          <h2 class="choose-h2-stats" id="words-known">Words Known:</h2>
+          <h2 id="words-known-stats"></h2>
+          <h2 class="choose-h2-stats" id="words-mastered">Words Mastered:</h2>
+          <h2 id="words-mastered-stats"></h2>
+          <h2 class="choose-h2-stats" id="words-remaining">Unseen Words:</h2>
+          <h2 id="words-remaining-stats"></h2>
+        </div>
+      </div>
+
+      <div class="current-question-container">
+        <h2 id="vocabWordInitial"></h2>
+        <h2 id="vocabWord"></h2>
+        <h2 id="englishTranslation"></h2>
+        <div id="sample-container">
+          <h2 id="chineseSampleSentence"></h2>
+          <h2 id="chineseSampleSentenceTranslation"></h2>
+        </div>
+
+        <h2 id="doYouKnowText">Do you know this word?</h2>
+
+        <div class="buttons-container">
+          <h2 id="forgotWordText">
+            You forgot this word, take a moment to study it.
+          </h2>
+          <button id="unknownWordBtn">I don't know</button>
+          <button id="knownWordBtn">I know this word</button>
+          <button id="doneStudyingBtn">I'm done studying it</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/vocab.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
