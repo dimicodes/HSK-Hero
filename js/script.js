@@ -60,12 +60,39 @@ reviewWordsBtn.addEventListener("click", function() {
 // List of words that are due for review according to their "nextReviewDate" property
 let dueForReview = [];
 
+let nextWordsList = [];
+
+
+function pushNewWordToInitialWordList(){
+    // Get a random index within the range of the hsk1 vocabulary list
+    let randomIndex = Math.floor(Math.random() * hsk1.length);
+
+    // Access the word at the random index
+    randomWord = hsk1[randomIndex];
+
+    while (randomWord.rightInARow >= 1){
+        randomIndex = Math.floor(Math.random() * hsk1.length);
+        randomWord = hsk1[randomIndex];
+    }
+    nextWordsList.push(randomWord);
+}
+
+
+function initialWordList(){
+    for (let i = 0; i < 10; i++){
+        pushNewWordToInitialWordList()
+    }
+    console.log("initialWordList: ", nextWordsList);
+}
+
+
 // Updates dueForReview list
 function updateDueForReviewList() {
     const now = Date.now();
     dueForReview.push(...hsk1.filter(word => word.nextReviewDate <= now));
     console.log("due for review list: ", dueForReview);
 }
+
 
 // Updates the stats section
 function countStats(){
@@ -92,6 +119,9 @@ function getNextWord(){
     englishTranslation.style.display = "none";
     sampleContainer.style.display = "none";
 
+    // Get a new random word and push to the initial word list to replenish
+    pushNewWordToInitialWordList();
+
     if (isReviewMode && dueForReview.length >= 1){
         randomWord = dueForReview.shift();
         randomChineseWord = randomWord.chinese;
@@ -99,21 +129,11 @@ function getNextWord(){
         chineseSentence = randomWord.sampleChinese;
         englishSentence = randomWord.sampleEnglish;
     } else {
-        // Get a random index within the range of the hsk1 vocabulary list
-        let randomIndex = Math.floor(Math.random() * hsk1.length);
-
-        // Access the word at the random index
-        randomWord = hsk1[randomIndex];
-
-        while (randomWord.rightInARow >= 1){
-            randomIndex = Math.floor(Math.random() * hsk1.length);
-            randomWord = hsk1[randomIndex];
-        }
-
-        randomChineseWord = hsk1[randomIndex].chinese;
-        chineseWordTranslation = hsk1[randomIndex].english;
-        chineseSentence = hsk1[randomIndex].sampleChinese;
-        englishSentence = hsk1[randomIndex].sampleEnglish;
+        randomWord = nextWordsList.shift();
+        randomChineseWord = randomWord.chinese;
+        chineseWordTranslation = randomWord.english;
+        chineseSentence = randomWord.sampleChinese;
+        englishSentence = randomWord.sampleEnglish;
     }
 
     // Display the random word
@@ -123,7 +143,6 @@ function getNextWord(){
     vocabWordInitial.innerText = randomChineseWord;
     vocabWordInitial.style.display = "block";
     vocabWord.style.display = "none";
-
 }
 
 
@@ -144,6 +163,10 @@ function unknownWord(){
     chineseSampleSentenceTranslation.innerHTML = englishSentence;
 
     randomWord.rightInARow = 0;
+    nextWordsList.splice(2,0,randomWord);
+
+    console.log("randomWord: ", randomWord);
+    console.log("initialWordList: ", nextWordsList);
     console.log(randomWord.chinese, randomWord.rightInARow);
 }
 
@@ -196,6 +219,7 @@ function doneStudying(){
 
 
 // Upon initial page load
+initialWordList()
 countStats();
 updateDueForReviewList();
 getNextWord();
