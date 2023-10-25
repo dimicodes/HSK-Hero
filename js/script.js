@@ -36,6 +36,7 @@ let chineseSampleSentenceTranslation = document.getElementById("chineseSampleSen
 let randomWord, randomChineseWord, chineseWordTranslation, chineseSentence, englishSentence;
 
 // Millisecond conversions and variables for Spaced Repetition Schedule
+const halfDayInMilliseconds = 0.5 * 24 * 60 * 60 * 1000;
 const oneDayInMilliseconds = 1 * 24 * 60 * 60 * 1000;
 const threeDaysInMilliseconds = 3 * 24 * 60 * 60 * 1000;
 const sevenDaysInMilliseconds = 7 * 24 * 60 * 60 * 1000;
@@ -80,7 +81,7 @@ function pushNewWordToInitialWordList(){
 
 function initialWordList(){
     for (let i = 0; i < 10; i++){
-        pushNewWordToInitialWordList()
+        pushNewWordToInitialWordList();
     }
     console.log("initialWordList: ", nextWordsList);
 }
@@ -89,7 +90,7 @@ function initialWordList(){
 // Updates dueForReview list
 function updateDueForReviewList() {
     const now = Date.now();
-    dueForReview.push(...hsk1.filter(word => word.nextReviewDate <= now));
+    dueForReview.push(...hsk1.filter(word => word.nextReviewDate <= (now - halfDayInMilliseconds)));
     console.log("due for review list: ", dueForReview);
 }
 
@@ -120,7 +121,7 @@ function getNextWord(){
     sampleContainer.style.display = "none";
 
     // Get a new random word and push to the initial word list to replenish
-    pushNewWordToInitialWordList();
+    // pushNewWordToInitialWordList();
 
     if (isReviewMode && dueForReview.length >= 1){
         randomWord = dueForReview.shift();
@@ -137,7 +138,6 @@ function getNextWord(){
     }
 
     // Display the random word
-    
     const vocabWord = document.getElementById("vocabWord");
     vocabWord.innerText = randomChineseWord;
     vocabWordInitial.innerText = randomChineseWord;
@@ -162,8 +162,10 @@ function unknownWord(){
     chineseSampleSentence.innerHTML = chineseSentence;
     chineseSampleSentenceTranslation.innerHTML = englishSentence;
 
+    // resets the user's streak of how many times they've gotten the word correct
     randomWord.rightInARow = 0;
-    nextWordsList.splice(2,0,randomWord);
+    // puts the unknown word in queue to be reviewed again (in index position 3)
+    nextWordsList.splice(3,0,randomWord);
 
     console.log("randomWord: ", randomWord);
     console.log("initialWordList: ", nextWordsList);
@@ -196,8 +198,8 @@ function knownWord(){
     console.log(randomWord.nextReviewDate);
 
     countStats();
+    pushNewWordToInitialWordList();
     getNextWord();
-
 }
 
 
@@ -219,7 +221,7 @@ function doneStudying(){
 
 
 // Upon initial page load
-initialWordList()
+initialWordList();
 countStats();
 updateDueForReviewList();
 getNextWord();

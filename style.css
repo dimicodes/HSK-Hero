@@ -135,8 +135,12 @@ button {
     padding-bottom: 5px;
 }
 
-#chineseSampleSentenceTranslation {
+#chineseSampleSentence {
     font-size: 1.1rem;
+}
+
+#chineseSampleSentenceTranslation {
+    font-size: 1rem;
 }
 
 #doYouKnowText {
