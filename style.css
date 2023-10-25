@@ -51,7 +51,7 @@ h1 {
     padding: 15px;
 }
 
-button {
+button, .mode-button {
     display: inline-flex;
     margin-left: auto;
     margin-right: auto;
@@ -70,6 +70,9 @@ button {
     font: 400 1em 'Raleway', sans-serif;
 }
 
+.mode-button-clicked {
+    background-color: #8ec0e9 !important; 
+  }
 
 #words-known-stats, #words-mastered-stats, #words-remaining-stats {
     margin: 3px auto;
@@ -98,7 +101,7 @@ button {
 
 }
 
-#chinese, #spanish, #french {
+#chinese, #hsk1, #hsk2 {
     background-color: #e1e1e1;
     color: #0D2A45;
     padding: 4px;

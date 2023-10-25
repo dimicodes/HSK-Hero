@@ -35,6 +35,33 @@ let chineseSampleSentenceTranslation = document.getElementById("chineseSampleSen
 
 let randomWord, randomChineseWord, chineseWordTranslation, chineseSentence, englishSentence;
 
+// List of words that are due for review according to their "nextReviewDate" property
+let dueForReview = [];
+
+let nextWordsList = [];
+
+// Vocabulary Lists
+let selectedVocabularyList = hsk1;
+
+// 
+let hsk1Btn = document.getElementById("hsk1");
+hsk1Btn.addEventListener("click", function(){
+    changeColor(hsk1Btn);
+    selectedVocabularyList = hsk1;
+    nextWordsList = [];
+    initialWordList();
+    console.log("hsk1 vocab list selected");
+});
+
+let hsk2Btn = document.getElementById("hsk2");
+hsk2Btn.addEventListener("click", function(){
+    changeColor(hsk2Btn);
+    selectedVocabularyList = hsk2;
+    nextWordsList = [];
+    initialWordList();
+    console.log("hsk2 vocab list selected");
+});
+
 // Millisecond conversions and variables for Spaced Repetition Schedule
 const halfDayInMilliseconds = 0.5 * 24 * 60 * 60 * 1000;
 const oneDayInMilliseconds = 1 * 24 * 60 * 60 * 1000;
@@ -51,61 +78,77 @@ let isReviewMode = false;
 let newWordsBtn = document.getElementById("newWords");
 newWordsBtn.addEventListener("click", function() {
     isReviewMode = false;
+    changeColor(newWordsBtn);
 });
 
 let reviewWordsBtn = document.getElementById("reviewWords");
 reviewWordsBtn.addEventListener("click", function() {
     isReviewMode = true;
+    changeColor(reviewWordsBtn);
 });
 
-// List of words that are due for review according to their "nextReviewDate" property
-let dueForReview = [];
-
-let nextWordsList = [];
 
 
-function pushNewWordToInitialWordList(){
+function changeColor(button) {
+    // Remove the highlighting class from all buttons
+    const buttons = document.querySelectorAll('.mode-button');
+    buttons.forEach((btn) => {
+      btn.classList.remove('mode-button-clicked');
+    });
+  
+    // Add the highlighting class to the clicked button
+    button.classList.add('mode-button-clicked');
+}
+
+
+function pushNewWordToInitialWordList(vocabularyList){
     // Get a random index within the range of the hsk1 vocabulary list
-    let randomIndex = Math.floor(Math.random() * hsk1.length);
+    let randomIndex = Math.floor(Math.random() * vocabularyList.length);
 
     // Access the word at the random index
-    randomWord = hsk1[randomIndex];
+    randomWord = vocabularyList[randomIndex];
 
     while (randomWord.rightInARow >= 1){
-        randomIndex = Math.floor(Math.random() * hsk1.length);
-        randomWord = hsk1[randomIndex];
-    }
+        randomIndex = Math.floor(Math.random() * vocabularyList.length);
+        randomWord = vocabularyList[randomIndex];
+    };
+
+    // if (nextWordsList.includes(randomWord)){
+    //     randomIndex = Math.floor(Math.random() * vocabularyList.length);
+    //     randomWord = vocabularyList[randomIndex];
+    // }
+
     nextWordsList.push(randomWord);
 }
 
 
 function initialWordList(){
     for (let i = 0; i < 10; i++){
-        pushNewWordToInitialWordList();
+        pushNewWordToInitialWordList(selectedVocabularyList);
     }
     console.log("initialWordList: ", nextWordsList);
 }
 
 
 // Updates dueForReview list
-function updateDueForReviewList() {
+function updateDueForReviewList(vocabularyList) {
     const now = Date.now();
-    dueForReview.push(...hsk1.filter(word => word.nextReviewDate <= (now - halfDayInMilliseconds)));
+    dueForReview.push(...vocabularyList.filter(word => word.nextReviewDate <= (now - halfDayInMilliseconds)));
     console.log("due for review list: ", dueForReview);
 }
 
 
 // Updates the stats section
-function countStats(){
+function countStats(vocabularyList){
     wordsKnown = 0;
     wordsMastered = 0;
     wordsRemaining = 0;
-    for (let i = 0; i < hsk1.length; i++){
-        if (hsk1[i].rightInARow === 7) {
+    for (let i = 0; i < vocabularyList.length; i++){
+        if (vocabularyList[i].rightInARow === 7) {
             wordsMastered += 1;
-        } else if (hsk1[i].rightInARow >= 1 && hsk1[i].rightInARow != 7){
+        } else if (vocabularyList[i].rightInARow >= 1 && vocabularyList[i].rightInARow != 7){
             wordsKnown += 1;
-        } else if (hsk1[i].rightInARow === 0){
+        } else if (vocabularyList[i].rightInARow === 0){
             ++wordsRemaining;
         }
     }
@@ -197,8 +240,8 @@ function knownWord(){
     console.log(randomWord.chinese, randomWord.rightInARow);
     console.log(randomWord.nextReviewDate);
 
-    countStats();
-    pushNewWordToInitialWordList();
+    countStats(selectedVocabularyList);
+    pushNewWordToInitialWordList(selectedVocabularyList);
     getNextWord();
 }
 
@@ -222,8 +265,12 @@ function doneStudying(){
 
 // Upon initial page load
 initialWordList();
-countStats();
-updateDueForReviewList();
+countStats(selectedVocabularyList);
+updateDueForReviewList(selectedVocabularyList);
+if (dueForReview.length >= 1){
+    isReviewMode = true;
+    changeColor(reviewWordsBtn);
+}
 getNextWord();
 
 
