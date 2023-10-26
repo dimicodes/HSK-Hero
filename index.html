@@ -19,19 +19,22 @@
         <div id="settings">
           <h2 class="settings">SETTINGS</h2>
           <h2 class="choose-h2">Choose a New HSK 3.0 level:</h2>
-          <button id="hsk1" class="mode-button mode-button-clicked">
+          <button id="hsk1" class="mode-button-hsk mode-button-hsk-clicked">
             HSK 1
           </button>
-          <button id="hsk2" class="mode-button">HSK 2</button>
-
+          <button id="hsk2" class="mode-button-hsk">HSK 2</button>
+          <h2 class="choose-h2">Words due for review:</h2>
+          <h2 id="dueForReviewNumber"></h2>
           <h2 class="choose-h2">Choose learning mode:</h2>
-          <button id="reviewWords">Review</button>
-          <button id="newWords">Learn New Words</button>
+          <button id="reviewWords" class="mode-button">Review</button>
+          <button id="newWords" class="mode-button mode-button-clicked">
+            Learn New Words
+          </button>
         </div>
 
         <div id="stats">
           <h2 class="stats">YOUR STATS</h2>
-          <h2 class="choose-h2-stats" id="words-known">Words Studied:</h2>
+          <h2 class="choose-h2-stats" id="words-known">Known Words:</h2>
           <h2 id="words-known-stats"></h2>
           <h2 class="choose-h2-stats" id="words-mastered">Words Mastered:</h2>
           <h2 id="words-mastered-stats"></h2>
@@ -43,6 +46,7 @@
       <div class="current-question-container">
         <h2 id="vocabWordInitial"></h2>
         <h2 id="vocabWord"></h2>
+        <h2 id="pinyin"></h2>
         <h2 id="englishTranslation"></h2>
         <div id="sample-container">
           <h2 id="chineseSampleSentence"></h2>
