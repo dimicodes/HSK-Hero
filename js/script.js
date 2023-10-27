@@ -226,6 +226,8 @@ function countStats(vocabularyList){
             ++wordsRemaining;
         }
     }
+    dueForReview = [];
+    updateDueForReviewList(selectedVocabularyList);
  
     dueForReviewStat = dueForReview.length;
 
@@ -311,18 +313,20 @@ function knownWord(){
     randomWord.rightInARow += 1;
 
     if (randomWord.rightInARow === 1) {
-        randomWord.nextReviewDate = Date.now() + oneDayInMilliseconds;
+        randomWord.nextReviewDate = Date.now() + oneMinInMilliseconds;
     } else if (randomWord.rightInARow === 2) {
-        randomWord.nextReviewDate = Date.now() + threeDaysInMilliseconds;
+        randomWord.nextReviewDate = Date.now() + oneDayInMilliseconds;
     } else if (randomWord.rightInARow === 3) {
-        randomWord.nextReviewDate = Date.now() + sevenDaysInMilliseconds;
+        randomWord.nextReviewDate = Date.now() + threeDaysInMilliseconds;
     } else if (randomWord.rightInARow === 4) {
-        randomWord.nextReviewDate = Date.now() + twentyOneDaysInMilliseconds;
+        randomWord.nextReviewDate = Date.now() + sevenDaysInMilliseconds;
     } else if (randomWord.rightInARow === 5) {
-        randomWord.nextReviewDate = Date.now() + thirtyDaysInMilliseconds;
+        randomWord.nextReviewDate = Date.now() + twentyOneDaysInMilliseconds;
     } else if (randomWord.rightInARow === 6) {
-        randomWord.nextReviewDate = Date.now() + fortyFiveDaysInMilliseconds;
+        randomWord.nextReviewDate = Date.now() + thirtyDaysInMilliseconds;
     } else if (randomWord.rightInARow === 7) {
+        randomWord.nextReviewDate = Date.now() + fortyFiveDaysInMilliseconds;
+    } else if (randomWord.rightInARow === 8) {
         randomWord.nextReviewDate = Date.now() + sixtyDaysInMilliseconds;
     }
 
