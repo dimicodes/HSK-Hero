@@ -313,7 +313,7 @@ function knownWord(){
     randomWord.rightInARow += 1;
 
     if (randomWord.rightInARow === 1) {
-        randomWord.nextReviewDate = Date.now() + oneMinInMilliseconds;
+        randomWord.nextReviewDate = Date.now() + halfDayInMilliseconds;
     } else if (randomWord.rightInARow === 2) {
         randomWord.nextReviewDate = Date.now() + oneDayInMilliseconds;
     } else if (randomWord.rightInARow === 3) {

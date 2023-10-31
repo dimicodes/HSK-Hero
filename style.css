@@ -4,6 +4,7 @@ body {
     font-family:Arial, Helvetica, sans-serif;
     font-weight: 100;
     background: radial-gradient(#cfcfcf, #16588D);
+    color: #0A1128;
 }
 
 h1 {
@@ -51,6 +52,15 @@ h1 {
     padding: 15px;
 }
 
+#stats {
+    background-color: #999999;
+
+}
+
+.stats, .settings {
+    color: #0A1128 !important;
+}
+
 button, .mode-button, .mode-button-hsk {
     display: inline-flex;
     margin-left: auto;
@@ -76,7 +86,11 @@ button, .mode-button, .mode-button-hsk {
 #unknownWordBtn, #knownWordBtn{
     margin-left: 5px;
     margin-right: 5px;
+    background-color:#dba540;
+}
 
+#knownWordBtn{
+    background-color:#59c490;
 }
 
 .mode-button-clicked, .mode-button-hsk-clicked {
@@ -166,6 +180,8 @@ button, .mode-button, .mode-button-hsk {
 
 #doYouKnowText {
     color: whitesmoke;
+    font-size: 1.2rem;
+    margin-top: 40px;
 }
 
 .buttons-container {
@@ -182,7 +198,7 @@ button, .mode-button, .mode-button-hsk {
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
-    padding: 40px;
+    padding: 30px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 
 }
