@@ -41,7 +41,7 @@ User progress is stored in local storage.
 
 # Preview
 
-![image](https://github.com/dimicodes/HSK-Hero/assets/45632694/7359602e-8f1a-48cb-acaf-c8d8b66aa2a6)
+![image](https://github.com/dimicodes/HSK-Hero/assets/45632694/eda1c24a-4ffb-4df1-b3ec-e979103dc824)
 
 ![image](https://github.com/dimicodes/HSK-Hero/assets/45632694/e313e798-e46b-4e36-bed1-196033e1ac36)
 
